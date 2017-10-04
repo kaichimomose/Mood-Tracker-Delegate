@@ -8,16 +8,38 @@
 
 import UIKit
 
-class ChooseMoodViewController: UIViewController {
+protocol FriendDelegate: class {
+    func didSelectFriend(list: List)
+}
+
+class ChooseMoodViewController: UIViewController, FriendDelegate {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var moodSegue: UISegmentedControl!
-    var list: List?
+    var actList: List?
     
     weak var delegate: MoodDelegate?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let list = actList {
+            nameTextField.text = list.name
+            var case_number: Int
+            if list.mood == "😁"{
+                case_number = 0
+            }
+            else if list.mood == "😑"{
+                case_number = 1
+            }
+            else{
+                case_number = 2
+            }
+            moodSegue.selectedSegmentIndex = case_number
+        }
+    }
+    
+    func didSelectFriend(list: List) {
+        actList = list
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -47,7 +69,11 @@ class ChooseMoodViewController: UIViewController {
             if list.name != "" {
                 delegate?.didSelectMood(list: list)
             }
-                
+            
+            let listMoodTableViewController = segue.destination as! ListMoodTableViewController
+            
+            listMoodTableViewController.delegate = self
+            
             print("save button tapped")
         }
         else if segue.identifier == "cancel" {

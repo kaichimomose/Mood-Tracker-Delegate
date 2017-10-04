@@ -16,6 +16,8 @@ class ListMoodTableViewController: UIViewController, MoodDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
+    weak var delegate: FriendDelegate?
+    
     var lists = [List]() {
         didSet {
             tableView.reloadData()
@@ -32,7 +34,16 @@ class ListMoodTableViewController: UIViewController, MoodDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addMood" {
+        if segue.identifier == "displayMood" {
+            print("Table view cell tapped")
+            
+            let indexPath = tableView.indexPathForSelectedRow!
+            
+            let list = lists[indexPath.row]
+            
+            delegate?.didSelectFriend(list: list)
+            
+        } else if segue.identifier == "addMood" {
             let chooseMoodViewController = segue.destination as! ChooseMoodViewController
             chooseMoodViewController.delegate = self
             print("+ button tapped")

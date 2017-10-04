@@ -68,6 +68,7 @@
                                             <outlet property="moodLabel" destination="XDW-dL-UV5" id="sP0-7O-1eL"/>
                                             <outlet property="moodModificationTimeLabel" destination="Zzp-u7-5dQ" id="6Sf-HY-zUU"/>
                                             <outlet property="nameLabel" destination="2AN-68-JCE" id="4YE-db-MRJ"/>
+                                            <segue destination="Q9g-eK-N3e" kind="show" identifier="displayMood" id="AwN-ku-D5Z"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -211,4 +212,7 @@
             <point key="canvasLocation" x="-327" y="134"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="AwN-ku-D5Z"/>
+    </inferredMetricsTieBreakers>
 </document>
